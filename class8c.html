@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIII C | Midnight Exhibition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #020617; 
+            color: #f1f5f9; 
+            overflow-x: hidden;
+        }
+        
+        #canvas-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+        }
+
+        .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .glass-card:hover {
+            border-color: #38bdf8;
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.15);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+        }
+
+        .widescreen-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Music Controller Style */
+        .music-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 20px;
+            border-radius: 100px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .music-visualizer {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 15px;
+        }
+
+        .bar {
+            width: 3px;
+            height: 100%;
+            background: #38bdf8;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        .bar:nth-child(2) { animation-delay: 0.2s; }
+        .bar:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 100% { height: 5px; }
+            50% { height: 15px; }
+        }
+
+        .paused .bar { animation-play-state: paused; height: 3px; }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas-bg"></canvas>
+
+    <div class="music-control" id="musicUI">
+        <div class="music-visualizer" id="visualizer">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="flex flex-col">
+            <span class="text-[9px] font-black uppercase tracking-widest text-sky-400">About You</span>
+            <span class="text-[8px] text-slate-400">The 1975</span>
+        </div>
+        <button id="musicToggle" class="w-8 h-8 flex items-center justify-center bg-sky-500 rounded-full text-white text-xs transition hover:scale-110">
+            <i class="fa-solid fa-pause" id="musicIcon"></i>
+        </button>
+    </div>
+
+    <nav class="fixed w-full z-50 px-6 md:px-12 py-8 flex justify-between items-center transition-all bg-gradient-to-b from-[#020617] to-transparent">
+        <span class="font-extrabold text-2xl tracking-[0.3em] text-white uppercase italic">VIII <span class="text-sky-500">C</span></span>
+        <div class="hidden md:flex space-x-12 font-bold text-[10px] uppercase tracking-[0.5em] text-slate-500">
+            <a href="#structure" class="hover:text-sky-400 transition">Struktur</a>
+            <a href="#students" class="hover:text-sky-400 transition">Anggota</a>
+            <a href="#business" class="hover:text-sky-400 transition">Business</a>
+        </div>
+    </nav>
+
+    <section class="min-h-screen flex items-center justify-center px-6 widescreen-container">
+        <div class="text-center" data-aos="zoom-out" data-aos-duration="1500">
+            <span class="uppercase tracking-[1em] text-[10px] font-black text-sky-400 mb-8 block opacity-70 italic">Official Class </span>
+            <h1 class="text-6xl md:text-[9rem] font-serif italic mb-10 text-white text-glow tracking-tighter leading-none">Welcome To VIII C.</h1>
+            <p class="text-slate-400 font-medium tracking-[0.8em] text-[11px] uppercase italic text-center mx-auto max-w-3xl">
+                SMPN 2 Gempol
+            </p>
+        </div>
+    </section>
+
+    <div class="widescreen-container px-6 md:px-12 py-20 relative z-10">
+        
+        <section id="structure" class="mb-52 pt-32">
+            <div class="max-w-5xl mx-auto relative group mb-12" data-aos="fade-up">
+                <div class="absolute -inset-1 bg-gradient-to-r from-sky-600/30 to-indigo-600/30 rounded-[4rem] blur-xl opacity-20 group-hover:opacity-50 transition duration-1000"></div>
+                <div class="relative glass-card p-12 md:p-20 rounded-[4rem] text-center border border-white/5">
+                    <div class="mb-10">
+                        <span class="text-sky-500 font-black uppercase text-[12px] tracking-[1em] block mb-4 opacity-80">The Guardian</span>
+                    </div>
+                    <h3 class="text-3xl md:text-6xl font-extrabold text-white tracking-normal uppercase leading-tight mb-6">
+                        H. Khusnul Aini S.Pd.
+                    </h3>
+                    <p class="text-slate-500 italic font-serif text-lg tracking-[0.4em]">"Homeroom Teacher Of VIII C"</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="glass-card p-10 md:p-12 rounded-[3rem] text-center" data-aos="fade-up">
+                    <span class="text-sky-500 font-black uppercase text-[10px] tracking-[0.6em] block mb-6">President</span>
+                    <h4 class="text-xl md:text-2xl font-extrabold text-white tracking-[0.1em] uppercase leading-relaxed">Nizar Dhaifullah Aditya Gunawan</h4>
+                </div>
+                <div class="glass-card p-10 md:p-12 rounded-[3rem] text-center" data-aos="fade-up" data-aos-delay="100">
+                    <span class="text-sky-500 font-black uppercase text-[10px] tracking-[0.6em] block mb-6">Vice President</span>
+                    <h4 class="text-xl md:text-2xl font-extrabold text-white tracking-[0.1em] uppercase leading-relaxed">Alief Maulana Alzein</h4>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-10 md:p-14 rounded-[3rem] text-center" data-aos="fade-up">
+                    <span class="text-slate-600 font-black text-[10px] uppercase mb-12 tracking-[0.7em] block border-b border-slate-800/50 pb-6">Secretary Dept.</span>
+                    <div class="space-y-12">
+                        <div>
+                            <span class="text-[9px] text-sky-500 font-bold uppercase tracking-[0.5em] block mb-3">Sekretaris 1</span>
+                            <p class="text-xl font-bold text-white tracking-[0.1em] uppercase leading-relaxed">Muhammad Arya Zamani</p>
+                        </div>
+                        <div>
+                            <span class="text-[9px] text-sky-500 font-bold uppercase tracking-[0.5em] block mb-3">Sekretaris 2</span>
+                            <p class="text-xl font-bold text-slate-400 tracking-[0.1em] uppercase leading-relaxed">Salsabila Yumna Dwi Pratiwi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-10 md:p-14 rounded-[3rem] text-center" data-aos="fade-up" data-aos-delay="200">
+                    <span class="text-slate-600 font-black text-[10px] uppercase mb-12 tracking-[0.7em] block border-b border-slate-800/50 pb-6">Finance Dept.</span>
+                    <div class="space-y-12">
+                        <div>
+                            <span class="text-[9px] text-emerald-500 font-bold uppercase tracking-[0.5em] block mb-3">Bendahara 1</span>
+                            <p class="text-xl font-bold text-white tracking-[0.1em] uppercase leading-relaxed">Nabilla Salsabilla Azzahra</p>
+                        </div>
+                        <div>
+                            <span class="text-[9px] text-emerald-500 font-bold uppercase tracking-[0.5em] block mb-3">Bendahara 2</span>
+                            <p class="text-xl font-bold text-slate-400 tracking-[0.1em] uppercase leading-relaxed">Roudhotul Jannah</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="students" class="mb-52">
+            <div class="text-center mb-24">
+                <h2 class="text-3xl md:text-4xl font-serif italic text-white tracking-[0.4em] uppercase">Manifest.</h2>
+                <p class="text-[10px] font-black text-slate-600 tracking-[0.5em] mt-4 uppercase">The VIII C Crew</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <script>
+                    const fullCrew = {
+                        1: "Abdullah Alam", 2: "Achmad Syafiq Ridi", 3: "Alief Maulana Alzein",
+                        4: "Alifda Nazma Zahiroh", 5: "Anjany Regina Putri", 6: "Aurelia Anggun Putri",
+                        7: "Ayra Yulia Ramadhani", 8: "Elysia Azzalia", 9: "Felisha Cerelia Azzarine",
+                        10: "Firdausi Nuzula", 11: "Hanki Pandu Yudha Pratama", 12: "Kafa Arjuna Putra",
+                        13: "Muhammad Daffa Naufal Ramadhan", 14: "Moch. Mifzal Syibra Robbany",
+                        15: "Moch Nasir Ilham", 16: "Muhammad Arya Zamani", 17: "Muhammad Azka Niyaz",
+                        18: "Muhammad Dhafa al Faruq", 19: "Muhammad Faiz Faizullah", 20: "Muhammad Fatkhul Nazar",
+                        21: "Muhammad Handika Saputra", 22: "Muhammad Rafael al Firdaus", 
+                        23: "Muhammad Zidan el Asyiq Dhiaul Haq", 24: "Muhammad Nur Alif",
+                        25: "Nabilla Salsabilla Azzahra", 26: "Nizar Dhaifullah Aditya Gunawan",
+                        27: "Nur Maulidiyah Putri Calista", 28: "Rafael Ridho Prasetyo",
+                        29: "Rahardian Nizar Firmansyah", 30: "Rinas Sopiah", 31: "Roudhotul Jannah",
+                        32: "Salsabila Yumna Dwi Pratiwi", 33: "Satria Agung Oktaviano",
+                        34: "Shalka Zakiyah Fara", 35: "Shely Dwi Septiani",
+                        36: "Syafia Malika Putri Sasyongko", 37: "Tristia Ramadhini"
+                    };
+                    for (let i = 1; i <= 37; i++) {
+                        const name = fullCrew[i] || "---";
+                        document.write(`
+                            <div class="glass-card p-6 md:p-8 rounded-3xl flex flex-col items-center justify-center space-y-4 text-center border-t-2 border-sky-500/30" data-aos="fade-up">
+                                <span class="text-[10px] font-black text-sky-500 opacity-50">${i.toString().padStart(2, '0')}</span>
+                                <span class="text-[13px] md:text-[14px] font-bold tracking-[0.15em] text-white uppercase leading-relaxed">${name}</span>
+                            </div>
+                        `);
+                    }
+                </script>
+            </div>
+        </section>
+
+        <section id="business" class="mb-52" data-aos="fade-up">
+            <div class="max-w-4xl mx-auto">
+                <div class="glass-card p-12 rounded-[3rem] border border-sky-500/20 relative overflow-hidden">
+                    <div class="absolute -top-24 -right-24 w-48 h-48 bg-sky-500/10 blur-[80px] rounded-full"></div>
+                    
+                    <div class="relative z-10 text-center">
+                        <span class="text-sky-500 font-black uppercase text-[10px] tracking-[0.6em] block mb-6">Collaboration</span>
+                        <h2 class="text-3xl md:text-5xl font-serif italic text-white mb-12 uppercase tracking-widest">For Business</h2>
+                        
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <a href="mailto:8c.spendapol@gmail.com" class="group flex flex-col items-center p-8 rounded-2xl bg-white/5 hover:bg-sky-500/10 transition-all duration-500 border border-white/5 hover:border-sky-500/30">
+                                <div class="w-12 h-12 mb-4 flex items-center justify-center rounded-full bg-sky-500/20 text-sky-400 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-envelope text-xl"></i>
+                                </div>
+                                <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Email Us</span>
+                                <span class="text-sm font-bold text-slate-200">8c.spendapol@gmail.com</span>
+                            </a>
+
+                            <a href="https://instagram.com/this.is.eight.c" target="_blank" class="group flex flex-col items-center p-8 rounded-2xl bg-white/5 hover:bg-pink-500/10 transition-all duration-500 border border-white/5 hover:border-pink-500/30">
+                                <div class="w-12 h-12 mb-4 flex items-center justify-center rounded-full bg-pink-500/20 text-pink-400 group-hover:scale-110 transition-transform">
+                                    <i class="fa-brands fa-instagram text-xl"></i>
+                                </div>
+                                <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Follow Us</span>
+                                <span class="text-sm font-bold text-slate-200">@this.is.eight.c</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="https://files.catbox.moe/k3399m.mp3" type="audio/mpeg">
+    </audio>
+
+    <footer class="py-32 text-center border-t border-slate-900/50">
+        <p class="text-[9px] font-black text-slate-800 tracking-[1.5em] uppercase mb-6">Made By Xera &bull; VIII C</p>
+        <p class="text-xs text-slate-600 font-serif italic">SMPN 2 Gempol &copy; 2026</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1200, once: true });
+        
+        const audio = document.getElementById('bgMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        const musicIcon = document.getElementById('musicIcon');
+        const visualizer = document.getElementById('visualizer');
+
+        // Play otomatis saat klik pertama
+        document.body.addEventListener('click', () => {
+            if (audio.paused) playAudio();
+        }, { once: true });
+
+        function playAudio() {
+            audio.play().catch(e => console.log("Audio play blocked"));
+            musicIcon.className = "fa-solid fa-pause";
+            visualizer.classList.remove('paused');
+        }
+
+        function pauseAudio() {
+            audio.pause();
+            musicIcon.className = "fa-solid fa-play";
+            visualizer.classList.add('paused');
+        }
+
+        musicToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (audio.paused) playAudio(); else pauseAudio();
+        });
+
+        // --- Particles Background ---
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        function init() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        class P {
+            constructor() { 
+                this.x = Math.random() * canvas.width; 
+                this.y = Math.random() * canvas.height; 
+                this.s = Math.random() * 2; 
+                this.vx = Math.random() * 0.3 - 0.15; 
+                this.vy = Math.random() * 0.3 - 0.15; 
+            }
+            u() { 
+                this.x += this.vx; this.y += this.vy; 
+                if(this.x<0||this.x>canvas.width)this.vx*=-1; 
+                if(this.y<0||this.y>canvas.height)this.vy*=-1; 
+            }
+            d() { ctx.fillStyle="rgba(56,189,248,0.2)"; ctx.beginPath(); ctx.arc(this.x,this.y,this.s,0,Math.PI*2); ctx.fill(); }
+        }
+        for(let i=0;i<120;i++)particles.push(new P());
+        function loop() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.u();p.d();}); requestAnimationFrame(loop); }
+        init(); loop(); window.onresize=init;
+    </script>
+</body>
+</html>
